@@ -21,3 +21,15 @@ resource "google_project_iam_member" "project" {
   role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.github_service_account.email}"
 }
+
+resource "google_project_service" "project" {
+  project = var.google_project_id
+  service = "iam.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
